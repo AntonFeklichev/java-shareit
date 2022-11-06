@@ -4,18 +4,22 @@ import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class InMemoryUserRepository implements UserRepository {
 
     private Map<Long, User> users = new HashMap<>();
 
+    private Long nextId = 1L;
+
+    private Long getNextId() {
+        return nextId++;
+    }
+
     @Override
-    public User addUser(final User user) {
+    public User addUser(User user) {
+        user.setId(getNextId());
         users.put(user.getId(), user);
         return user;
     }
@@ -32,8 +36,8 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public User findById(final Long userId) {
-        return users.get(userId);
+    public Optional<User> findById(final Long userId) {
+        return Optional.ofNullable(users.get(userId));
     }
 
     @Override
