@@ -1,7 +1,7 @@
 package ru.practicum.shareit.item.repository.impl;
 
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.entity.Item;
 import ru.practicum.shareit.item.repository.ItemRepository;
 
 import java.util.HashMap;
@@ -12,9 +12,15 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryItemRepository implements ItemRepository {
     private Map<Long, Item> items = new HashMap<>();
+    private Long nextId = 1L;
+
+    private Long getNextId() {
+        return nextId++;
+    }
 
     @Override
     public Item addItem(final Item item) {
+        item.setId(getNextId());
         items.put(item.getId(), item);
         return item;
     }
@@ -34,7 +40,7 @@ public class InMemoryItemRepository implements ItemRepository {
     public List<Item> findByOwnerId(final Long ownerId) {
         return items.values()
                 .stream()
-                .filter(item -> item.getUserId().equals(ownerId))
+                .filter(item -> item.getOwnerId().equals(ownerId))
                 .collect(Collectors.toList());
     }
 

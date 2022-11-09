@@ -1,14 +1,16 @@
 package ru.practicum.shareit.item.mapper;
 
+import org.springframework.stereotype.Component;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.entity.Item;
 
+@Component
 public class ItemMapper {
 
-    public Item toItem(ItemDto dto, Long userId) {
+    public Item toItem(ItemDto dto, Long ownerId) {
         return Item.builder()
                 .id(dto.getId())
-                .userId(userId)
+                .ownerId(ownerId)
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .available(dto.isAvailable())

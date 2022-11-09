@@ -1,6 +1,7 @@
 package ru.practicum.shareit.user.exception.handler;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -10,8 +11,11 @@ import ru.practicum.shareit.user.exception.UserNotFoundException;
 
 import javax.validation.ValidationException;
 
-@RestControllerAdvice(basePackageClasses = {ru.practicum.shareit.user.UserController.class})
-public class UserControllerExceptionHandler {
+@RestControllerAdvice(
+        basePackageClasses = {ru.practicum.shareit.user.UserController.class,
+                ru.practicum.shareit.item.ItemController.class})
+
+public class ControllerExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
