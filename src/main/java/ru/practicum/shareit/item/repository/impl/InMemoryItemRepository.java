@@ -4,9 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.item.entity.Item;
 import ru.practicum.shareit.item.repository.ItemRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -32,8 +30,8 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public Item findById(final Long itemId) {
-        return items.get(itemId);
+    public Optional<Item> findById(final Long itemId) {
+        return Optional.ofNullable(items.get(itemId));
     }
 
     @Override
@@ -52,5 +50,10 @@ public class InMemoryItemRepository implements ItemRepository {
                 .filter(item -> item.getName().toLowerCase().contains(text.toLowerCase()) ||
                         item.getDescription().toLowerCase().contains(text.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Item> findAll() {
+        return new ArrayList<>(items.values());
     }
 }
