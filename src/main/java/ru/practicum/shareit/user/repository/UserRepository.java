@@ -1,6 +1,6 @@
 package ru.practicum.shareit.user.repository;
 
-import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.entity.User;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
