@@ -25,7 +25,6 @@ public class ControllerExceptionHandler {
     @ResponseBody
     public Map<String, String> validationError(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
-        StringBuilder builder = new StringBuilder();
         List<FieldError> errors = result.getFieldErrors();
         Map<String, String> responseMap = new HashMap<>();
         for (FieldError error : errors) {
