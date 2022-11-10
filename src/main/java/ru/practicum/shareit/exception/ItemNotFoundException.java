@@ -1,6 +1,4 @@
-package ru.practicum.shareit.item.exception;
-
-import ru.practicum.shareit.user.exception.DataNotFoundException;
+package ru.practicum.shareit.exception;
 
 public class ItemNotFoundException extends DataNotFoundException {
     public ItemNotFoundException(String message) {

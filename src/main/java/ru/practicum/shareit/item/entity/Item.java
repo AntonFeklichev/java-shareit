@@ -1,7 +1,9 @@
 package ru.practicum.shareit.item.entity;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 /**
  * TODO Sprint add-controllers.
@@ -13,6 +15,11 @@ public class Item {
     private Long ownerId;
     private String name;
     private String description;
-    private boolean available;
+    @Getter(AccessLevel.NONE)
+    private Boolean available;
     private Long requestId;
+
+    public Boolean isAvailable() {
+        return available;
+    }
 }

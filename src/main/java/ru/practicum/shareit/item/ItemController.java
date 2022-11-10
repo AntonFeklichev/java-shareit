@@ -23,7 +23,6 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    //TODO ADD PATCH VALIDATOR
     @PostMapping
     public ItemDto addItem(@RequestHeader("x-sharer-user-id")
                            Long sharerId,
@@ -48,5 +47,18 @@ public class ItemController {
         }
     }
 
+    @PatchMapping("/{itemId}")
+    public ItemDto updateItem(@RequestBody
+                              ItemDto itemDto,
+                              @RequestHeader(value = "x-sharer-user-id")
+                              Long ownerId,
+                              @PathVariable Long itemId) {
+        itemDto.setId(itemId);
+        return itemService.updateItem(itemDto, ownerId);
+    }
 
+    @GetMapping("/search")
+    public List<ItemDto> findBySearch(@RequestParam String text) {
+        return itemService.findBySearch(text);
+    }
 }
