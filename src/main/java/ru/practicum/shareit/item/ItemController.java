@@ -36,7 +36,7 @@ public class ItemController {
     public ItemDto findById(@PathVariable Long itemId) {
         return itemService.findById(itemId);
     }
-    
+
     @GetMapping
     public List<ItemDto> findAllByOwnerId(@RequestHeader(value = "x-sharer-user-id", required = false)
                                           Long ownerId) {

@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -23,7 +22,8 @@ public class ItemDto {
     @NotNull
     @Getter(AccessLevel.NONE)
     private Boolean available;
-    public Boolean isAvailable(){
+
+    public Boolean isAvailable() {
         return available;
     }
 }

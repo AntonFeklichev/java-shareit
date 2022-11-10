@@ -13,6 +13,7 @@ public interface ItemService {
     List<ItemDto> findAll();
 
     List<ItemDto> findAllByOwnerId(Long ownerId);
+
     ItemDto updateItem(ItemDto itemDto, Long ownerId);
 
     List<ItemDto> findBySearch(String text);
