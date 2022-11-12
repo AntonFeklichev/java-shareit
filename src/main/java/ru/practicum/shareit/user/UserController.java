@@ -1,6 +1,6 @@
 package ru.practicum.shareit.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/users")
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final UserPatchValidator userPatchValidator;
@@ -25,11 +26,6 @@ public class UserController {
         binder.setValidator(userPatchValidator);
     }
 
-    @Autowired
-    public UserController(UserService userService, UserPatchValidator userPatchValidator) {
-        this.userService = userService;
-        this.userPatchValidator = userPatchValidator;
-    }
 
     @PostMapping
     public UserDto addUser(@Valid @RequestBody

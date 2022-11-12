@@ -1,7 +1,7 @@
 package ru.practicum.shareit.item.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exception.AutentificationFailedException;
 import ru.practicum.shareit.exception.ItemNotFoundException;
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private final ItemMapper itemMapper;
     private final ItemRepository itemRepository;
@@ -27,13 +28,6 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemPatchValidator itemPatchValidator;
 
-    @Autowired
-    public ItemServiceImpl(ItemMapper itemMapper, ItemRepository itemRepository, UserRepository userRepository, ItemPatchValidator itemPatchValidator) {
-        this.itemMapper = itemMapper;
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-        this.itemPatchValidator = itemPatchValidator;
-    }
 
     @Override
 
