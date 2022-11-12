@@ -30,7 +30,6 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-
     public ItemDto addItem(ItemDto itemDto, Long sharerId) {
         checkThatSharerExists(sharerId);
         Item item = itemMapper.toItem(itemDto, sharerId);
@@ -40,8 +39,7 @@ public class ItemServiceImpl implements ItemService {
 
 
     private void checkThatSharerExists(Long sharerId) throws UserNotFoundException {
-        userRepository.findById(sharerId)
-                .orElseThrow(() -> new UserNotFoundException("Sharer not found"));
+        userRepository.findById(sharerId).orElseThrow(() -> new UserNotFoundException("Sharer not found"));
     }
 
     @Override
@@ -52,10 +50,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDto> findAll() {
-        return itemRepository.findAll()
-                .stream()
-                .map(itemMapper::toDto)
-                .collect(Collectors.toList());
+        return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -70,8 +65,8 @@ public class ItemServiceImpl implements ItemService {
     public ItemDto updateItem(ItemDto itemDto, Long maybeOwnerId) throws ItemNotFoundException {
         checkThatSharerExists(maybeOwnerId);
         Item updatedItem = itemMapper.toItem(itemDto, maybeOwnerId);
-        Item oldItem = itemRepository.findById(updatedItem.getId())
-                .orElseThrow(() -> new ItemNotFoundException("Item for updating not found"));
+        Item oldItem = itemRepository.findById(updatedItem.getId()).orElseThrow(
+                () -> new ItemNotFoundException("Item for updating not found"));
         authenticateOwner(maybeOwnerId, oldItem);
         itemPatchValidator.validate(itemDto);
         updatedItem = mapItemForUpdating(oldItem, updatedItem);

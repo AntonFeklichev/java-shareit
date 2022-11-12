@@ -2,15 +2,11 @@ package ru.practicum.shareit.item.valdator;
 
 import org.springframework.stereotype.Component;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.entity.Item;
 
 import javax.validation.ValidationException;
 
 @Component
 public class ItemPatchValidator {
-    public boolean supports(Class<?> clazz) {
-        return clazz.equals(Item.class);
-    }
 
     public void validate(ItemDto dto) {
         if (!nameOfItemIsValid(dto)) {

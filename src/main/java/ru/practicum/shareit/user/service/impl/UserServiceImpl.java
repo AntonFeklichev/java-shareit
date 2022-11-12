@@ -2,13 +2,14 @@ package ru.practicum.shareit.user.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.user.dto.UserDto;
-import ru.practicum.shareit.user.entity.User;
 import ru.practicum.shareit.exception.EmailAlreadyExistsException;
 import ru.practicum.shareit.exception.UserNotFoundException;
+import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.entity.User;
 import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.repository.UserRepository;
 import ru.practicum.shareit.user.service.UserService;
+import ru.practicum.shareit.user.validator.UserPatchValidator;
 
 import javax.validation.ValidationException;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserPatchValidator userPatchValidator;
 
     @Override
     public UserDto addUser(UserDto userDto) {
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
         User updatedUser = userMapper.toUser(userDto);
         User oldUser = userRepository.findById(userDto.getId())
                 .orElseThrow(() -> new UserNotFoundException("Cannot find user for updating"));
+        userPatchValidator.validate(updatedUser);
         mapUserForUpdating(updatedUser, oldUser);
         userRepository.updateUser(updatedUser);
         return userMapper.toDto(updatedUser);
